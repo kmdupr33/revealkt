@@ -67,7 +67,7 @@ fun presentation(init: Presentation.() -> Unit) {
     val outputString = getHtmlPrefix() + presentation + getHtmlSuffix()
     val presentationDir = File("presentation")
     if (!presentationDir.exists()) {
-        val exec = Runtime.getRuntime().exec("git clone https://github.com/hakimel/reveal.js.git presentation")
+        val exec = Runtime.getRuntime().exec("git clone https://github.com/kmdupr33/reveal.js.git presentation")
         println(exec.errorStream.bufferedReader().readText())
     }
     val file = File("presentation", "index.html")
@@ -83,59 +83,3 @@ private fun getResourceString(name: String) = Presentation::class.java
         .getResourceAsStream(name)
         .bufferedReader()
         .readText()
-
-
-fun main(args: Array<String>) {
-    presentation {
-        slide {
-            text = "# Stop Yak Shaving"
-        }
-        slide {
-            image = "https://media.licdn.com/mpr/mpr/p/4/005/0a6/1ce/04eede4.jpg"
-        }
-        slide {
-            text = "Create tech presentations with a DSL like this..."
-        }
-        code {
-            language = "kotlin"
-            source("""
-                presentation {
-                    slide {
-                        text = "# Stop Yak Shaving"
-                    }
-                }
-            """)
-        }
-        slide { text = "Make slides that step through code easily like this..." }
-        val stepThroughCode = """
-            val stepThroughCode = \"\"\"
-                code {
-                    language = "kotlin"
-                    source(\"\"\"
-                        println ("Stop Yak Shaving")
-                    \"\"\")
-                }
-            \"\"\"
-            code {
-                language = "kotlin"
-                source(stepThroughCode, 0)
-            }
-            code {
-                language = "kotlin"
-                source(stepThroughCode, 2)
-            }
-            code {
-                language = "kotlin"
-                source(stepThroughCode, 3)
-            }
-        """.trimMargin()
-        code {
-            language = "kotlin"
-            source(stepThroughCode, 0)
-        }
-        code {
-            language = "kotlin"
-            source(stepThroughCode, 2)
-        }
-    }
-}

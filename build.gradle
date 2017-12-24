@@ -14,10 +14,15 @@ buildscript {
 
 apply plugin: 'kotlin'
 
+sourceSets {
+    main.kotlin.srcDirs = ['pSource']
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    compile fileTree(dir: 'build/libs/', include: ['*.jar'])
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
